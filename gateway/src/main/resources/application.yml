@@ -1,0 +1,29 @@
+server:
+  port: 7501
+spring:
+  application:
+    name: gateway
+zuul:
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 15000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout:  10000
+  ReadTimeout:  10000
+  eager-load:
+    enabled: true
+  eureka:
+    enabled: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:7101/eureka/,http://peer2:7102/eureka/
+
+

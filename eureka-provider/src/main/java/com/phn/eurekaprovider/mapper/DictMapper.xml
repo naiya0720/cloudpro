@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.phn.eurekaprovider.mapper.DictMapper" >
+  <resultMap id="BaseResultMap" type="com.phn.commonvo.model.Dict" >
+    <constructor >
+      <idArg column="dict_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dict_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dict_value" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dict_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dict_remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dict_id, dict_name, dict_value, dict_type, dict_remark
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_dict
+    where dict_id = #{dictId,jdbcType=VARCHAR}
+  </delete>
+  <select id="queryDictPager" resultType="com.phn.commonvo.model.Dict" parameterType="com.phn.commonvo.model.Dict">
+    select <include refid="Base_Column_List"/> from t_dict where 1=1
+    <if test="null!=dictType and ''!=dictType">
+        and dict_type=#{dictType}
+    </if>
+  </select>
+  <insert id="insert" parameterType="com.phn.commonvo.model.Dict" >
+    insert into t_dict (dict_id, dict_name, dict_value, 
+      dict_type, dict_remark)
+    values (#{dictId,jdbcType=VARCHAR}, #{dictName,jdbcType=VARCHAR}, #{dictValue,jdbcType=VARCHAR}, 
+      #{dictType,jdbcType=VARCHAR}, #{dictRemark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.phn.commonvo.model.Dict" >
+    update t_dict
+    set dict_name = #{dictName,jdbcType=VARCHAR},
+      dict_value = #{dictValue,jdbcType=VARCHAR},
+      dict_type = #{dictType,jdbcType=VARCHAR},
+      dict_remark = #{dictRemark,jdbcType=VARCHAR}
+    where dict_id = #{dictId,jdbcType=VARCHAR}
+  </update>
+</mapper>
